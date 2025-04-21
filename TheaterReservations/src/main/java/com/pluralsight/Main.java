@@ -20,6 +20,7 @@ public class Main {
         String firstName = name.substring(0, spacePosition);
         String lastName = name.substring(spacePosition + 1);
 
+
         name = lastName + ", "  + firstName;
 
 
@@ -29,7 +30,7 @@ public class Main {
         String day = date[1];
         String year = date[2];
 
-        String finalDate = month + "-" + day + "-" + year;
+        String finalDate = year + "-" + month + "-" + day;
 
 
 
