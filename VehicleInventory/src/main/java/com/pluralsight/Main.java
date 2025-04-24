@@ -1,7 +1,10 @@
 package com.pluralsight;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 public class Main {
 
+    private static Vehicle[] car = new Vehicle[20];
+    private static int carCount = 6;
     private static Scanner scanner = new Scanner(System.in);
     private static Vehicle[] cars = getAPopulatedVihicle();
 
@@ -28,25 +31,82 @@ public class Main {
             scanner.nextLine();
 
             if (userInput == 1) {
-                for (Vehicle vehicle : cars) {
-                    if(vehicle != null){
-                        System.out.println(vehicle.getVehicleId() + ", " + vehicle.getMakeModel() + ", " + vehicle.getColor() + ", " + vehicle.getOdometerReading() + ", " + vehicle.getPrice() + ".");
-                    }
-                }
+                listAllVehicle();
             } else if (userInput == 2){
-                System.out.println("Name the car by make/model: ");
-                String userSearch = scanner.nextLine();
-
-                for (Vehicle vehicle : cars) {
-                    if (vehicle != null){
-
-                        if (userSearch.equalsIgnoreCase(vehicle.getMakeModel())){
-                            System.out.println(vehicle.getVehicleId() + ", " + vehicle.getMakeModel() + ", " + vehicle.getColor() + ", " + vehicle.getOdometerReading() + ", " + vehicle.getPrice() + ".");
-                        }
-                    }
-                }
+                searchByMakeModel();
             }  else if (userInput == 3){
-                System.out.print("Enter the price of the car: ");
+                searchByPriceRange();
+            } else if (userInput == 4){
+                searchByColor();
+            }  else if (userInput == 5){
+                addVehicle();
+            }
+
+        } while (userInput != 6);
+    }
+
+    private static void addVehicle(){
+        System.out.print("Add a vehicle (vehicleId, make/model, color, odometer, price): ");
+                String newVehicle = scanner.nextLine();
+
+                String[] makeNewVehicle = newVehicle.split(Pattern.quote(","));
+
+                long id = Long.parseLong(makeNewVehicle[0].trim());
+                String make = makeNewVehicle[1].trim();
+                String color = makeNewVehicle[2].trim();
+                int odometer = Integer.parseInt(makeNewVehicle[3].trim());
+                float price = Float.parseFloat(makeNewVehicle[4].trim());
+
+                if (carCount < car.length){
+                    car[carCount] = new Vehicle(id, make, color, odometer, price);
+                    carCount++;
+                    System.out.println("Vehicle added successfully!");
+                } else {
+                    System.out.println("Sorry, the car list is full.");
+                }
+
+
+
+    }
+
+    private static void listAllVehicle(){
+        for (Vehicle vehicle : cars) {
+            if(vehicle != null){
+                System.out.println(vehicle.getVehicleId() + ", " + vehicle.getMakeModel() + ", " + vehicle.getColor() + ", " + vehicle.getOdometerReading() + ", " + vehicle.getPrice() + ".");
+            }
+        }
+    }
+
+    private static void searchByMakeModel(){
+        System.out.println("Name the car by make/model: ");
+        String userSearch = scanner.nextLine();
+
+        for (Vehicle vehicle : cars) {
+            if (vehicle != null){
+
+                if (userSearch.equalsIgnoreCase(vehicle.getMakeModel())){
+                    System.out.println(vehicle.getVehicleId() + ", " + vehicle.getMakeModel() + ", " + vehicle.getColor() + ", " + vehicle.getOdometerReading() + ", " + vehicle.getPrice() + ".");
+                }
+            }
+        }
+    }
+
+    private static void searchByColor(){
+        System.out.print("Enter the color of the car: ");
+        String userSearch = scanner.nextLine();
+
+        for (Vehicle vehicle : cars) {
+            if (vehicle != null){
+
+                if (userSearch.equalsIgnoreCase(vehicle.getColor())){
+                    System.out.println(vehicle.getVehicleId() + ", " + vehicle.getMakeModel() + ", " + vehicle.getColor() + ", " + vehicle.getOdometerReading() + ", " + vehicle.getPrice() + ".");
+                }
+            }
+        }
+    }
+
+    private static void searchByPriceRange(){
+        System.out.print("Enter the price of the car: ");
                 float userSearch = scanner.nextFloat();
 
                 for (Vehicle vehicle : cars) {
@@ -57,79 +117,9 @@ public class Main {
                         }
                     }
                 }
-            } else if (userInput == 4){
-                System.out.print("Enter the color of the car: ");
-                String userSearch = scanner.nextLine();
-
-                for (Vehicle vehicle : cars) {
-                    if (vehicle != null){
-
-                        if (userSearch.equalsIgnoreCase(vehicle.getColor())){
-                            System.out.println(vehicle.getVehicleId() + ", " + vehicle.getMakeModel() + ", " + vehicle.getColor() + ", " + vehicle.getOdometerReading() + ", " + vehicle.getPrice() + ".");
-                        }
-                    }
-                }
-            }  else if (userInput == 5){
-                System.out.print("Add a vehicle: ");
-                String userSearch = scanner.nextLine();
-
-                for (Vehicle vehicle : cars) {
-                    if (vehicle != null){
-
-                        if (userSearch.equalsIgnoreCase(vehicle.getColor())){
-                            System.out.println(vehicle.getVehicleId() + ", " + vehicle.getMakeModel() + ", " + vehicle.getColor() + ", " + vehicle.getOdometerReading() + ", " + vehicle.getPrice() + ".");
-                        }
-                    }
-                }
-            }
-
-        } while (userInput != 6);
     }
 
-//    private static Vehicle getCarById(Vehicle[] cars, int id){
-//        for (Vehicle vehicle : cars){
-//            if(vehicle.getVehicleId() == id){
-//                return vehicle;
-//            }
-//        }
-//        return null;
-//    }
-//    private static Vehicle getCarByModel(Vehicle[] cars, String model){
-//        for (Vehicle vehicle : cars){
-//            if(vehicle.getMakeModel().equalsIgnoreCase(model)){
-//                return vehicle;
-//            }
-//        }
-//        return null;
-//    }
-//    private static Vehicle getCarByColor(Vehicle[] cars, String color){
-//        for (Vehicle vehicle : cars){
-//            if(vehicle.getColor().equalsIgnoreCase(color)){
-//                return vehicle;
-//            }
-//        }
-//        return null;
-//    }
-//    private static Vehicle getCarByOdometerReading(Vehicle[] cars, int odometer){
-//        for (Vehicle vehicle : cars){
-//            if(vehicle.getOdometerReading() == odometer){
-//                return vehicle;
-//            }
-//        }
-//        return null;
-//    }
-//    private static Vehicle getCarByPrice(Vehicle[] cars, float pricing){
-//        for (Vehicle vehicle : cars){
-//            if(vehicle.getPrice() == pricing){
-//                return vehicle;
-//            }
-//        }
-//        return null;
-//    }
-
-
     private static Vehicle[] getAPopulatedVihicle(){
-        Vehicle[] car = new Vehicle[20];
 
         car[0] = new Vehicle(101121,"Ford Explorer","Red",45000,13500);
         car[1] = new Vehicle(101122,"Toyota Camry","Blue",60000,11000);
