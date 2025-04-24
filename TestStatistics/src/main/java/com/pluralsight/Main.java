@@ -2,6 +2,8 @@ package com.pluralsight;
 
 public class Main {
     public static void main(String[] args) {
+
+
         int[] nums = {63, 65, 95, 53, 100, 80, 35, 31, 70, 88};
         int max = nums[0];
         int min = nums[0];
@@ -23,11 +25,4 @@ public class Main {
 
     }
 
-//    public static void displayNumbers(int[] nums)
-//    {
-//        for (int i = 0; i < nums.length; i++) {
-//            System.out.print(nums[i] + " ");
-//        }
-//        System.out.println();
-//    }
 }
