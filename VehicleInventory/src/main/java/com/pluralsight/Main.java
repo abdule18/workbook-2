@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 public class Main {
 
-    private static Vehicle[] car = new Vehicle[20];
+
     private static int carCount = 6;
     private static Scanner scanner = new Scanner(System.in);
     private static Vehicle[] cars = getAPopulatedVihicle();
@@ -43,30 +43,6 @@ public class Main {
             }
 
         } while (userInput != 6);
-    }
-
-    private static void addVehicle(){
-        System.out.print("Add a vehicle (vehicleId, make/model, color, odometer, price): ");
-                String newVehicle = scanner.nextLine();
-
-                String[] makeNewVehicle = newVehicle.split(Pattern.quote(","));
-
-                long id = Long.parseLong(makeNewVehicle[0].trim());
-                String make = makeNewVehicle[1].trim();
-                String color = makeNewVehicle[2].trim();
-                int odometer = Integer.parseInt(makeNewVehicle[3].trim());
-                float price = Float.parseFloat(makeNewVehicle[4].trim());
-
-                if (carCount < car.length){
-                    car[carCount] = new Vehicle(id, make, color, odometer, price);
-                    carCount++;
-                    System.out.println("Vehicle added successfully!");
-                } else {
-                    System.out.println("Sorry, the car list is full.");
-                }
-
-
-
     }
 
     private static void listAllVehicle(){
@@ -119,16 +95,41 @@ public class Main {
                 }
     }
 
+    private static void addVehicle(){
+        System.out.print("Add a vehicle (vehicleId, make/model, color, odometer, price): ");
+        String newVehicle = scanner.nextLine();
+
+        String[] makeNewVehicle = newVehicle.split(Pattern.quote(","));
+
+        long id = Long.parseLong(makeNewVehicle[0].trim());
+        String make = makeNewVehicle[1].trim();
+        String color = makeNewVehicle[2].trim();
+        int odometer = Integer.parseInt(makeNewVehicle[3].trim());
+        float price = Float.parseFloat(makeNewVehicle[4].trim());
+
+        if (carCount < cars.length){
+            cars[carCount++] = new Vehicle(id, make, color, odometer, price);
+           // carCount++;
+            System.out.println("Vehicle added successfully!");
+        } else {
+            System.out.println("Sorry, the car list is full.");
+        }
+
+
+
+    }
+
     private static Vehicle[] getAPopulatedVihicle(){
+        Vehicle[] result = new Vehicle[20];
 
-        car[0] = new Vehicle(101121,"Ford Explorer","Red",45000,13500);
-        car[1] = new Vehicle(101122,"Toyota Camry","Blue",60000,11000);
-        car[2] = new Vehicle(101123,"Chevrolet Malibu","Black",50000,9700);
-        car[3] = new Vehicle(101124,"Honda Civic","White",70000,7500);
-        car[4] = new Vehicle(101125,"Subaru Outback","Green",55000,14500);
-        car[5] = new Vehicle(101126,"Jeep Wrangler","Yellow",30000,16000);
+        result[0] = new Vehicle(101121,"Ford Explorer","Red",45000,13500);
+        result[1] = new Vehicle(101122,"Toyota Camry","Blue",60000,11000);
+        result[2] = new Vehicle(101123,"Chevrolet Malibu","Black",50000,9700);
+        result[3] = new Vehicle(101124,"Honda Civic","White",70000,7500);
+        result[4] = new Vehicle(101125,"Subaru Outback","Green",55000,14500);
+        result[5] = new Vehicle(101126,"Jeep Wrangler","Yellow",30000,16000);
 
-        return car;
+        return result;
     }
 
 }
